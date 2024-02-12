@@ -1,0 +1,144 @@
+{% include 'homePage.html' %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Task Table</title>
+
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f8f9fa; /* Light gray background color */
+    }
+
+    h2 {
+      color: #007bff; /* Bootstrap primary color for the heading */
+    }
+
+    table {
+      font-family: Arial, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+      margin-top: 20px;
+      background-color: #fff; /* White background color for the table */
+    }
+
+    th, td {
+      border: 1px solid #dee2e6; /* Slightly lighter border color */
+      text-align: left;
+      padding: 8px;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f2f3f4; /* Slightly darker background color for even rows */
+    }
+
+    input[type=text], select {
+      width: 100%;
+      padding: 12px 20px;
+      margin: 8px 0;
+      display: inline-block;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    input[type=submit] {
+      width: 100%;
+      background-color: #28a745; /* Bootstrap success color for the submit button */
+      color: white;
+      padding: 14px 20px;
+      margin: 8px 0;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease; /* Smooth transition on hover */
+    }
+
+    input[type=submit]:hover {
+      background-color: #218838; /* Darker color on hover for the submit button */
+    }
+
+    a {
+      text-decoration: none;
+      padding: 8px 12px;
+      margin-right: 8px;
+      color: #fff; /* Text color for buttons */
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    a.delete {
+      background-color: #dee4ed; /* Bootstrap danger color for Delete button */
+      transition: background-color 0.3s ease; /* Smooth transition on hover */
+    }
+
+    a.delete:hover {
+      background-color: #e0e0eb; /* Darker color on hover for the Delete button */
+    }
+
+    a.edit {
+      background-color: #eaedf7; /* Bootstrap warning color for Edit button */
+      transition: background-color 0.3s ease; /* Smooth transition on hover */
+    }
+
+    a.edit:hover {
+      background-color: #e0a800; /* Darker color on hover for the Edit button */
+    }
+    h2 {
+      color: #007bff; /* Bootstrap primary color for the heading */
+      text-align: center;
+    }
+
+  </style>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<body>
+
+  <div class="container">
+    <h2>View Task Table</h2>
+
+    <div class="table-responsive">
+      <table class="table">
+        <tr>
+          <th>Title</th>
+          <th>Description</th>
+          <th>Date</th>
+          <th>Priority</th>
+          <th>Category</th>
+          <th>Completion</th>
+          <th>Action</th>
+        </tr>
+        {% for i in task %}
+          <tr>
+            <td>{{ i.title }}</td>
+            <td>{{ i.describtion }}</td> <!-- Update variable name here -->
+            <td>{{ i.due_date }}</td>
+            <td>{{ i.priority }}</td>
+            <td>{{ i.Catagoriy }}</td> <!-- Update variable name here -->
+            <td>
+              {% if i.completaion %}
+                Completed
+              {% else %}
+                Incomplete
+              {% endif %}
+            </td>
+            <td>
+              <a class="delete" href="{% url 'taskDeletePage' i.id %}">Delete</a>
+              <a class="edit" href="{% url 'taskEditPage' i.id %}">Edit</a>
+            </td>
+          </tr>
+        {% endfor %}
+      </table>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>
+
+{% endblock %}
